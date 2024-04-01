@@ -1,0 +1,7 @@
+{
+  "name": "janji_temu",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
