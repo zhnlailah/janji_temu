@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { AppointmentService } from '../shared/appointment.service';
-
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { AppointmentService } from './../shared/appointment.service';
 @Component({
   selector: 'app-make-appointment',
   templateUrl: './make-appointment.page.html',
@@ -14,28 +13,27 @@ export class MakeAppointmentPage implements OnInit {
     private aptService: AppointmentService,
     private router: Router,
     public fb: FormBuilder
-  ) { }
-
+  ) {}
   ngOnInit() {
     this.bookingForm = this.fb.group({
       name: [''],
       email: [''],
       mobile: [''],
+      location: ['']
     });
   }
-  formSubmit(){
-    if (!this.bookingForm.valid){
+  formSubmit() {
+    if (!this.bookingForm.valid) {
       return false;
-    } else{
+    } else {
       return this.aptService
-      .createBooking(this.bookingForm.value)
-      .then ((res) => {
-        console.log(res);
-        this.bookingForm.reset();
-        this.router.navigate(['/home'])
-      })
-      .catch((Error) => console.log(Error));
+        .createBooking(this.bookingForm.value)
+        .then((res) => {
+          console.log(res);
+          this.bookingForm.reset();
+          this.router.navigate(['/home']);
+        })
+        .catch((error) => console.log(error));
     }
   }
-
 }

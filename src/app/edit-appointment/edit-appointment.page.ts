@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { AppointmentService } from '../shared/appointment.service';
-
+import { ActivatedRoute, Router } from "@angular/router";
+import { FormGroup, FormBuilder } from "@angular/forms";
+import { AppointmentService } from './../shared/appointment.service';
 @Component({
   selector: 'app-edit-appointment',
   templateUrl: './edit-appointment.page.html',
@@ -14,31 +13,32 @@ export class EditAppointmentPage implements OnInit {
   constructor(
     private aptService: AppointmentService,
     private actRoute: ActivatedRoute,
-    private router:Router,
+    private router: Router,
     public fb: FormBuilder
   ) {
     this.id = this.actRoute.snapshot.paramMap.get('id');
-    this.aptService.getBooking(this.id).valueChanges().subscribe(res => {
-      this.updateBookingForm.patchValue({
-        name: res.name,
-        email: res.email,
-        mobile: res.mobile
-      });
-    });
-  }
-  ngOnInit() {
     this.updateBookingForm = this.fb.group({
       name: [''],
       email: [''],
-      mobile: ['']
-    })
+      mobile: [''],
+      location: ['']
+    });
+    
+    this.aptService.getBooking(this.id).valueChanges().subscribe(res => {
+      if (res) {
+        this.updateBookingForm.patchValue(res); // Gunakan patchValue untuk mengisi nilai ke form
+      }
+    });
+  }
+
+  ngOnInit() {
     console.log(this.updateBookingForm.value)
   }
-  updateForm(){
+  updateForm() {
     this.aptService.updateBooking(this.id, this.updateBookingForm.value)
-    .then(() => {
-      this.router.navigate(['/home']);
-    })
-    .catch(Error => console.log(Error));
+      .then(() => {
+        this.router.navigate(['/home']);
+      })
+      .catch(error => console.log(error));
   }
 }

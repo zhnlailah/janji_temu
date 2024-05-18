@@ -7,6 +7,7 @@ export const environment = {
   firebaseConfig : {
     apiKey: "AIzaSyC1_9I-Mb1QaC_3kC5sx_CRAotcUa8ubEE",
     authDomain: "janji-temu-64b45.firebaseapp.com",
+    databaseURL: "https://janji-temu-64b45-default-rtdb.firebaseio.com",
     projectId: "janji-temu-64b45",
     storageBucket: "janji-temu-64b45.appspot.com",
     messagingSenderId: "558995164756",

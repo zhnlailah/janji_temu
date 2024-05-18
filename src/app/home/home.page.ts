@@ -1,7 +1,6 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Appointment } from '../shared/Appointment';
-import { AppointmentService } from '../shared/appointment.service';
-
+import { AppointmentService } from './../shared/appointment.service';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -11,9 +10,9 @@ export class HomePage implements OnInit {
   Bookings: any = [];
   constructor(private aptService: AppointmentService) {}
   ngOnInit() {
-    this.fetchBookigs();
+    this.fetchBookings();
     let bookingRes = this.aptService.getBookingList();
-    bookingRes.snapshotChanges().subscribe ((res) => {
+    bookingRes.snapshotChanges().subscribe((res) => {
       this.Bookings = [];
       res.forEach((item) => {
         let a: any = item.payload.toJSON();
@@ -22,15 +21,15 @@ export class HomePage implements OnInit {
       });
     });
   }
-  fetchBookigs(){
+  fetchBookings() {
     this.aptService
-    .getBookingList()
-    .valueChanges()
-    .subscribe((res) => {
-      console.log(res);
-    });
+      .getBookingList()
+      .valueChanges()
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
-  deleteBooking(id:any){
+  deleteBooking(id: any) {
     console.log(id);
     if (window.confirm('Do you really want to delete?')) {
       this.aptService.deleteBooking(id);

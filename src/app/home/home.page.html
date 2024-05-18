@@ -1,34 +1,39 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      Doctor App
+      Doctors App
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-list class = "ios list-ios hydrated">
-    <ion-list-header class = "ios hydrated">
-      Appointment
-    </ion-list-header>
-    <ion-item *ngfor = "let booking of Bookings" class = "user-list">
-      <ion-label>
-        <hs>
-          <ion-icon name = "person" ></ion-icon> {{booking.name}}
-        </hs>
-        <p>
-          <ion-icon name = " call"></ion-icon> {{booking.mobile}}
-        </p>
-      </ion-label>
-      <div class = "item-note" item-end>
-        <button ion-button clear [routerLink] = "['/edit-appointment/', booking.$key]">
-          <ion-icon name = "create" style="zoom:2.0"></ion-icon>
-        </button>
+<ion-content>
+  <ion-card color="primary">
+    <ion-card-header>
+      <ion-card-title>Appointments</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Welcome to Doctors App. Here are your appointments:</p>
+    </ion-card-content>
+  </ion-card>
 
-        <button ion-button clear (click) = "deleteBooking(booking.$key)">
-          <ion-icon name = " trash" style="zoom:2.0"></ion-icon>
+  <ion-card *ngFor="let booking of Bookings">
+    <ion-card-header>
+      <ion-card-title>{{ booking.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label>
+        <p><ion-icon name="call"></ion-icon> {{booking.mobile}}</p>
+        <p><ion-icon name="mail"></ion-icon> {{booking.email}}</p>
+        <p><ion-icon name="location"></ion-icon> {{booking.location}}</p>
+      </ion-label>
+      <div class="item-note" item-end>
+        <button ion-button clear [routerLink]="['/edit-appointment/', booking.$key]">
+          <ion-icon name="create" style="zoom:2.0" color="warning"></ion-icon>
+        </button>
+        <button ion-button clear (click)="deleteBooking(booking.$key)">
+          <ion-icon name="trash" style="zoom:2.0" ></ion-icon>
         </button>
       </div>
-    </ion-item>
-  </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
